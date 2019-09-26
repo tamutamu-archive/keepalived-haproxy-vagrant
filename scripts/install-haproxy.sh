@@ -47,3 +47,4 @@ apt-get -y install iptables-persistent
 
 
 iptables -t nat -A PREROUTING -d 192.168.1.200 -j REDIRECT
+iptables-save

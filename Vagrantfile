@@ -4,11 +4,13 @@
 Vagrant.configure("2") do |config|
 
   config.vbguest.auto_update = true
+
+  config.vm.boot_timeout = 600
   
   if Vagrant.has_plugin?("vagrant-proxyconf")
     config.proxy.http     = ""
     config.proxy.https    = ""
-    config.proxy.no_proxy = ""
+    config.proxy.no_proxy = "localhost,127.0.0.1,192.168.1.10,192.168.1.11,192.168.1.20,192.168.1.21,192.168.1.30,192.168.1.31,192.168.1.200"
   end
 
   ## config.ssh.private_key_path = "./ssh_key"
@@ -86,7 +88,7 @@ Vagrant.configure("2") do |config|
     web1.vm.box = "ubuntu/bionic64"
     web1.vm.network :private_network, ip: "192.168.1.30"
     web1.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "256", "--cpus", "1"]
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1"]
     end
     web1.vm.provision "shell" do |s|
       s.path = "scripts/common.sh"
@@ -102,7 +104,7 @@ Vagrant.configure("2") do |config|
     web2.vm.box = "ubuntu/bionic64"
     web2.vm.network :private_network, ip: "192.168.1.31"
     web2.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "256", "--cpus", "1"]
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1"]
     end
     web2.vm.provision "shell" do |s|
       s.path = "scripts/common.sh"
@@ -118,7 +120,7 @@ Vagrant.configure("2") do |config|
     jmeter.vm.box = "ubuntu/bionic64"
     jmeter.vm.network :private_network, ip: "192.168.1.50"
     jmeter.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1"]
+      vb.customize ["modifyvm", :id, "--memory", "1324", "--cpus", "1"]
     end
     jmeter.vm.provision "shell" do |s|
       s.path = "scripts/common.sh"
